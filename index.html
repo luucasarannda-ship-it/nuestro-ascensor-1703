@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Para Alba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Figtree:wght@400;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--noche:#1e1a2b;--rojo:#a8222f;--flamenco:#f0788c;--petalo:#fdeeee;--jardin:#3d5a3b;--tinta:#2b2230}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:17px/1.7 'Figtree',sans-serif;background:var(--petalo);color:var(--tinta);overflow-x:hidden}
+h1,h2,h3,summary{font-family:'Young Serif',serif;font-weight:400;line-height:1.1}
+h2{font-size:clamp(1.8rem,5vw,3.4rem);margin-bottom:.5em}
+h3{font-size:1.5rem;margin:1rem 0 .3rem}
+p+p{margin-top:1rem}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit}
+.nota{font-family:'Caveat',cursive;font-size:clamp(1.3rem,4vw,1.6rem);color:var(--rojo);line-height:1.2}
+.tu{background:rgba(240,120,140,.2);border-bottom:2px dashed var(--flamenco);border-radius:3px;padding:0 .2em;word-break:break-word}
+.piso{max-width:1200px;margin:auto;padding:clamp(2.5rem,8vw,8rem) clamp(1rem,5vw,5rem)}
+.dos{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(1.5rem,5vw,5rem);align-items:center}
+.rev .pila{order:-1}
+@media(max-width:800px){.dos{grid-template-columns:1fr}.rev .pila{order:0}}
+figure{margin:0}
+.pila{position:relative;aspect-ratio:3/4;max-width:440px;width:100%;justify-self:center}
+.pila figure{position:absolute;border:7px solid #fff;box-shadow:0 14px 34px rgba(30,26,43,.28);background:#fff}
+.pila .a{inset:0 20% 14% 0;transform:rotate(-2.5deg)}
+.pila .b{width:44%;aspect-ratio:3/4;right:0;bottom:0;transform:rotate(4deg)}
+#entrada{position:relative;min-height:100vh;min-height:100dvh;display:grid;place-items:center;overflow:hidden;text-align:center;color:#fff;background:var(--rojo)}
+.luces{position:absolute;top:0;left:0;right:0;height:96px;background:radial-gradient(circle,rgba(255,255,255,.75) 0 4px,transparent 5px) 0 0/44px 44px;opacity:.6}
+.escena{position:relative;z-index:1;padding:1.5rem}
+.escena>*{opacity:0;transition:opacity 1.8s 1.6s}
+.abierto .escena>*{opacity:1}
+.escena .nota{color:#ffd3da;font-size:clamp(1.5rem,5vw,2rem)}
+#entrada h1{font-size:clamp(3.5rem,18vw,16rem);letter-spacing:-.02em}
+.escena p.sub{max-width:34rem;margin:1rem auto 2rem}
+.sube{display:inline-block;padding:.8rem 1.8rem;border:2px solid #fff;border-radius:999px;text-decoration:none;font-weight:600}
+.sube:hover,.sube:focus-visible{background:#fff;color:var(--rojo)}
+.puertas{position:absolute;inset:0;display:flex;z-index:3;pointer-events:none}
+.puerta{flex:1;background:linear-gradient(90deg,#8f959b,#e6e9ec 38%,#b3b8bd 62%,#d8dbde);transition:transform 2.6s cubic-bezier(.7,0,.2,1)}
+.puerta:first-child{border-right:2px solid #666b70}
+.abierto .puerta:first-child{transform:translateX(-101%)}
+.abierto .puerta:last-child{transform:translateX(101%)}
+#piso{position:fixed;right:.8rem;top:50%;transform:translateY(-50%);z-index:10;background:var(--noche);color:#ff5252;padding:.5rem .8rem;border-radius:.6rem;text-align:center;box-shadow:0 0 0 3px #8b8f94;font:700 1.7rem/1.1 'Figtree',sans-serif}
+#piso small{display:block;max-width:5.5rem;margin-top:.2rem;color:#e6dfe6;font:500 .62rem/1.2 'Figtree',sans-serif}
+@media(max-width:600px){#piso{top:auto;bottom:1rem;transform:none;right:1rem}#piso small{display:none}}
+.reloj{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.5rem;justify-content:center}
+.reloj div{flex:1 1 70px;min-width:4.5rem;max-width:6.5rem;padding:.7rem .5rem;border-radius:.7rem;background:var(--noche);color:#fff;text-align:center}
+.reloj b{display:block;font:400 clamp(1.4rem,4vw,2rem) 'Young Serif',serif}
+.reloj span{font-size:.8rem;color:#f3b9c3}
+.motivos{list-style:none;padding:0;margin-top:1.5rem;display:grid;gap:1.2rem}
+.motivos li{display:flex;gap:1rem}
+.motivos li::before{content:"♥";color:var(--flamenco);font-size:1.5rem;line-height:1.3;flex-shrink:0}
+.pares{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;margin-top:2rem}
+.pares figure{aspect-ratio:4/5;border:7px solid #fff;box-shadow:0 14px 34px rgba(30,26,43,.25)}
+.pares article:nth-child(2){margin-top:0}
+@media(min-width:800px){.pares article:nth-child(2){margin-top:3rem}}
+.pequenas{list-style:none;padding:0;margin-top:3rem;display:grid;gap:.4rem}
+.pequenas li{font-family:'Caveat',cursive;font-size:1.8rem;color:var(--rojo)}
+.pequenas li::before{content:"✿ ";color:var(--flamenco)}
+#instantes{background:var(--noche);color:#fff;max-width:none}
+#instantes>*{max-width:1100px;margin-inline:auto}
+#instantes .nota{color:#f3b9c3}
+.tira{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:1.5rem 0 2rem;max-width:none!important}
+.tira figure{flex:0 0 min(72vw,300px);scroll-snap-align:center;background:var(--noche);border-radius:4px;overflow:hidden;box-shadow:0 0 0 1px #4a4458;display:flex;flex-direction:column;}
+.tira img{width:100%;height:100%;object-fit:cover;flex:1;}
+.tira .txt img{object-fit:contain;background:var(--noche);}
+.tira img{height:auto;aspect-ratio:4/5}
+.tira .txt img{aspect-ratio:1170/940;object-fit:contain}
+.tira figcaption{padding:.8rem 1rem 1rem;font:1.4rem/1.2 'Caveat',cursive;color:#f3b9c3;background:var(--noche)}
+.sobres{max-width:720px;margin-top:2rem}
+details{background:#fff;border:2px solid var(--flamenco);border-radius:.4rem;margin-bottom:1rem}
+summary{cursor:pointer;list-style:none;padding:1.1rem 1.4rem;font-size:1.3rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"✉";float:right;color:var(--rojo)}
+details[open] summary::after{content:"♥"}
+.carta{padding:0 1.4rem 1.4rem;animation:abrir .6s}
+@keyframes abrir{from{opacity:0;transform:translateY(-10px)}}
+.promesas{list-style:none;padding:0;margin-top:2rem;display:grid;gap:1.4rem;max-width:720px}
+.promesas li{border-left:5px solid var(--flamenco);padding-left:1.2rem;font:clamp(1.1rem,3vw,1.35rem)/1.4 'Young Serif',serif}
+#azotea{position:relative;max-width:none;min-height:100vh;min-height:100dvh;display:grid;place-items:center;text-align:center;color:#fff;background:linear-gradient(rgba(30,26,43,.72),rgba(30,26,43,.8)),url(fotos/foto12.jpg) center/cover}
+#azotea .interior{max-width:42rem}
+#azotea .nota{color:#ffd3da}
+.si{margin-top:2rem;padding:1rem 2.4rem;border:0;border-radius:999px;background:var(--flamenco);color:var(--noche);font:700 1.1rem 'Figtree',sans-serif;cursor:pointer}
+.si:hover{background:#ff9aab}
+.si:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--flamenco);outline-offset:3px}
+#final{margin-top:2rem}
+.petalo{position:fixed;top:-3rem;z-index:20;color:var(--flamenco);pointer-events:none;animation:cae linear forwards}
+@keyframes cae{to{transform:translateY(112vh) rotate(360deg)}}
+footer{padding:2rem;text-align:center;background:var(--noche);color:#f3b9c3;font:1.5rem 'Caveat',cursive}
+@media(prefers-reduced-motion:reduce){.puerta,.escena>*{transition:none}.carta{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div id="piso" aria-hidden="true"><b>0</b><small>Entrada</small></div>
+
+<header id="entrada" data-piso="0" data-nombre="Entrada">
+  <div class="luces"></div>
+  <div class="escena">
+    <p class="nota">de Lucas, para</p>
+    <h1>Alba</h1>
+    <p class="sub"><span class="tu">✎ Una frase corta de inicio: lo primero que quieres que lea al abrir la página.</span></p>
+    <a class="sube" href="#p1">Sube conmigo</a>
+  </div>
+  <div class="puertas"><div class="puerta"></div><div class="puerta"></div></div>
+</header>
+
+<section class="piso" id="p1" data-piso="1" data-nombre="Nuestro comienzo">
+  <div class="dos">
+    <div>
+      <p class="nota">planta 1</p>
+      <h2>Cómo nos conocimos</h2>
+      <p><span class="tu">Me acuerdo aún del día que nos vimos por primera vez, yo estaba con mi pelo de calvo y tú tan guapa como siempre. Fue el 21 de marzo y me acuerdo perfectamente de que nunca había estado tan nervioso por conocer a alguien. También recuerdo que te hablé tanto que posiblemente acabaste colapsada, pero ya sabes que era mi forma de demostrar lo nervioso que estaba, pero desde ese día me generaste una sensación imborrable, vi algo en ti que no podría explicar con palabras.</span></p>
+      <p><span class="tu">El momento exacto en el que me di cuenta de que eras distinta a todas las demás me es difícil de recordar, ya que creo que fueron muchas cosas, pero si tengo que destacar algo es la sinceridad que me transmitías al contarme las cosas, eras tú misma sin importar lo que fuese a pensar yo de ti y eso me hizo replantearme mucho el tipo de persona que eras, para bien, claramente. También siempre me ha encantado la confianza que me has transmitido desde el primer día y la forma en la que tratas a los demás, ya que me pareces una gran persona con cualquiera que lo necesite y eso es una virtud enorme.</span></p>
+    </div>
+    <div class="pila">
+      <figure class="a"><img src="fotos/foto02.jpg" alt="Alba y Lucas en el ascensor"></figure>
+      <figure class="b"><img src="fotos/foto01.jpg" alt="Alba y Lucas abrazados"></figure>
+    </div>
+  </div>
+  <div class="reloj" data-desde="2026-03-17T00:00:00">
+    <div><b>0</b><span>días</span></div>
+    <div><b>0</b><span>horas</span></div>
+    <div><b>0</b><span>minutos</span></div>
+    <div><b>0</b><span>segundos</span></div>
+  </div>
+  <p class="nota" style="margin-top:1rem"><span class="tu">Tanto tiempo y tan rápido que se me pasa contigo...</span></p>
+</section>
+
+<section class="piso" id="p2" data-piso="2" data-nombre="Por qué te amo">
+  <div class="dos rev">
+    <div>
+      <p class="nota">planta 2</p>
+      <h2>Por qué te amo tanto</h2>
+      <ul class="motivos">
+        <li><span class="tu">El primer motivo y el más importante para mí es la forma en la que me haces sentir tan especial, que aunque a veces puedas tener malos días o poca paciencia siempre te has sabido poner en mi lugar y comprenderme para que me sienta mejor.</span></li>
+        <li><span class="tu">El segundo motivo es porque todo contigo es como el mejor plan del mundo, incluso estar tumbados en el sofá viendo una peli abrazaditos, aunque a mí no me guste tanto a veces. Pero contigo cada momento lo haces muy especial.</span></li>
+        <li><span class="tu">El tercer motivo es simplemente tu forma de ser, algo que no controlas y que simplemente es así y me encanta todo, absolutamente todo de tu personalidad.</span></li>
+        <li><span class="tu">El cuarto motivo entre otros muchos más, pero el cuarto motivo importante es que intentas cambiar cosas que en la vida hubieras intentado solo porque piensas que me pueden hacer daño, y sobre todo esa empatía que siempre te ha caracterizado, conmigo y con los demás, me encanta tu bondad en general.</span></li>
+        <li><span class="tu">Podría decirte mil cosas más por las que te amo, pero quiero que te fijes en estas 4 ya que son a las que más importancia le doy y quiero que tú valores estas cualidades tuyas sobre otras muchas que tienes.</span></li>
+      </ul>
+    </div>
+    <div class="pila">
+      <figure class="a"><img src="fotos/foto03.jpg" alt="Alba sonriendo con Lucas dándole un beso"></figure>
+      <figure class="b"><img src="fotos/foto08.jpg" alt="Alba con gafas de sol y Lucas"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="piso" id="p3" data-piso="3" data-nombre="Lo que me enamora">
+  <p class="nota">planta 3</p>
+  <h2>Lo que más me gusta de ti</h2>
+  <div class="pares">
+    <article>
+      <figure><img src="fotos/foto04.jpg" alt="Alba sacando la lengua a la cámara"></figure>
+      <h3><span class="tu">Tu cara</span></h3>
+      <p><span class="tu">Todo en conjunto, el amor de tus ojos, la sinceridad de tu sonrisa cuando estás feliz, la felicidad que me transmites, todo eso me hace ser cada día un hombre más feliz.</span></p>
+    </article>
+    <article>
+      <figure><img src="fotos/foto05.jpg" alt="Alba junto a una moto de noche"></figure>
+      <h3><span class="tu">Tu estilo</span></h3>
+      <p><span class="tu">Siempre me ha encantado tu estilo en general, los gustos que tienes para la ropa y lo guapa que te pones siempre y sobre todo tus gustos musicales y los planes que te gusta hacer, ya que siempre que me propones un plan me lo paso genial.</span></p>
+    </article>
+  </div>
+</section>
+
+<section class="piso" id="instantes" data-piso="4" data-nombre="Nuestros instantes">
+  <div>
+    <p class="nota">planta 4</p>
+    <h2>Nuestros instantes</h2>
+    <p><span class="tu">Todos estos recuerdos que he podido recopilar...</span></p>
+  </div>
+  <div class="tira" tabindex="0">
+    <figure><img src="fotos/foto07.jpg" alt="Lucas con gorra y Alba apoyada en él"><figcaption><span class="tu">Cuando vimos a España en el bar de al lado de mi casa y ganamos</span></figcaption></figure>
+    <figure><img src="fotos/foto06.jpg" alt="Alba frente a un balcón lleno de flores"><figcaption><span class="tu">Cuando estabas tan guapa y te hice unas fotos en Candeleda</span></figcaption></figure>
+    <figure><img src="fotos/foto09.jpg" alt="Selfie de Lucas y Alba bajo el cielo"><figcaption><span class="tu">Cuando te pusiste malita y nos sentamos en un banco para que te encontraras mejor</span></figcaption></figure>
+    <figure><img src="fotos/foto10.jpg" alt="Selfie de Lucas y Alba haciendo gestos"><figcaption><span class="tu"></span></figcaption></figure>
+    <figure class="txt"><img src="fotos/foto11.jpg" alt="Mensaje de Lucas para Alba"><figcaption><span class="tu">Este mensaje que para ti puede ser insignificante pero de veras que me alegró el día y realmente hizo que tuviera mucha más positividad ese día</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="piso" id="p5" data-piso="5" data-nombre="Ábreme cuando">
+  <p class="nota">planta 5</p>
+  <h2>Ábreme cuando…</h2>
+  <div class="sobres">
+    <details><summary>…estés triste</summary><div class="carta"><p><span class="tu">Cuando estés triste, acuérdate de todos los momentos buenos que hemos pasado juntos y de que tienes a tu alrededor gente que te quiere de verdad, y yo el que más.</span></p></div></details>
+    <details><summary>…dudes de lo mucho que te quiero</summary><div class="carta"><p><span class="tu">Eres la persona más especial que tengo en mi vida y nunca podría mi corazón dejar de sentir cosas por ti. Eres mi razón para seguir adelante cuando tengo problemas en mi vida. De verdad que eres muy importante para mí y a pesar de que pueda haberte creado dudas, de verdad que espero poder quitar esas dudas para siempre.</span></p></div></details>
+    <details><summary>…nos echemos de menos</summary><div class="carta"><p><span class="tu">Cuando nos echemos de menos quiero que veas esta página que he creado con todo mi amor y recuerdes todos estos momentos e intentes imaginarte que estoy ahí contigo abrazándote y dándote todo mi amor.</span></p></div></details>
+  </div>
+</section>
+
+<section class="piso" id="p6" data-piso="6" data-nombre="Promesas">
+  <p class="nota">planta 6</p>
+  <h2>Lo que te prometo</h2>
+  <ul class="promesas">
+    <li><span class="tu">Te prometo que jamás dejaré de quererte y que siempre voy a dar todo de mí para que te sientas amada; a pesar de mis errores mi amor por ti es tan fuerte que va a hacer que nunca puedas dudar de nuestro amor, porque siempre te amaré.</span></li>
+    <li><span class="tu">Te prometo que nunca me cansaré de ti por muchos problemas que surjan o por muchas cosas que puedan pasar, ya que mi amor por ti es más fuerte y nunca ningún problema lo superará, te lo prometo.</span></li>
+    <li><span class="tu">Te prometo que siempre voy a estar para ti para ayudarte con tus problemas y que nunca vas a poder dejar de confiar en mí y que siempre te ayudaré con tu ansiedad y siempre estaré a tu lado anteponiéndolo a cualquier situación.</span></li>
+  </ul>
+</section>
+
+<section id="azotea" class="piso" data-piso="7" data-nombre="Azotea">
+  <div class="interior">
+    <p class="nota">última planta</p>
+    <h2>Alba,</h2>
+    <p><span class="tu">Bueno amorcito, si subiste hasta esta planta significa que de verdad te está gustando, y eso me alegra mucho. Esta parte final creo que es la más importante y la que quería hacer justo antes de darte este regalo, ya que aquí voy a expresar todos mis sentimientos y mis pensamientos actuales sobre ti. Sé que últimamente puede haber algo en mí que no sé qué es exactamente, pero te está haciendo dudar si te voy a dejar de querer o si me estoy cansando de ti, y como ya te he dicho en algunas ocasiones, eso no tiene ningún sentido, pero no quiero decirte lo mismo de siempre porque sé que te cuesta creerlo y es normal. Estas inseguridades que te han entrado de verdad que me ponen super triste porque yo siempre he tenido un sentimiento super fuerte hacia ti y siempre lo voy a tener. Lo único que quiero que sepas siempre es que bueno pienso que las personas podemos tener buenas y malas rachas en cuanto a la vida y también en cuanto a las relaciones también, pero eso no cambia un sentimiento puro de amor que le tienes a alguien. Yo sí que he notado sobre todo que mi reacción sobre los problemas que podemos tener a lo mejo es un poco más exaltada que antes o que estoy un poco más apático, pero analizando mis sentimientos y de verdad que los he analizado para llegar a la raíz de este problema, no tiene nada que ver contigo y no ha cambiado nada en mis sentimientos hacia ti, no sé qué puede estar causando esta forma de ser, pero es algo más general. Lo que sí he pensado es que tengo que pensar todo esto antes de actuar porque mis actos pueden tener consecuencias en ti y crearte pensamientos que no deberían estar y no pretendo que ya por leer esto te va a cambiar la mentalidad, pero por eso exactamente voy a cambiar todo eso que te hace pensar esas cosas que de verdad no tienen nada que ver con lo que pienso y vas a sentirte como te mereces, como una reina, porque tú eres la reina de mi vida. También quiero decirte que en todo este tiempo después de las cosas que nos han pasado me he dado cuenta que te amo de verdad, de una manera muy pura, porque en su día me entraron dudas de lo que me decías sobre que si estaba obsesionado simplemente o que si tenía demasiada dependencia y no sé, le he dado muchas vueltas a eso y después de un tiempo tengo claro que lo que siempre he sentido por ti es amor de verdad. Dicho todo esto bebé, solo quiero que no lo des por perdido, que no te fijes solo en estas dos semanas, que te fijes en todas las anteriores y todas las que vienen porque de verdad que voy a reflexionar mucho sobre esto, pero sé perfectamente que mi amor por ti sigue estando ahí como siempre y te lo voy a demostrar. No espero que cambies de opinión completamente con este regalo porque entiendo que puedas pensar esas cosas aunque no sepa qué actitud he tenido para llegar a esto, solo espero que te guste y que tengas en cuenta todo el cariño que he puesto en ello. De verdad que tengo claro que eres el amor de mi vida y me siento una mierda por no haberte dado el trato que te mereces, aunque haya sido solo en este periodo. De verdad que ha sido todo inconscientemente y pensando que todo iba bien y como te he dicho no tiene nada que ver con lo que piensas porque te amo más que a nadie. Quiero que sigamos juntos hasta el final de nuestro ascensor y que ese ascensor sea el de nuestras vidas. De verdad que todo esto te lo digo desde mi mayor sinceridad y con el corazón en la mano, nunca me había dedicado tanto a expresar mis sentimientos escribiendo y de verdad solo quiero que los comprendas. No le veo el sentido a todo esto ni cómo ha podido pasar, pero simplemente pienso que ha podido ser un descuido claramente mío de no darme cuenta de ciertas cosas y no te mereces eso, por todo esto créeme que las cosas van a volver a ser como antes y serás mi novia, mi mujer y hasta la madre de mis hijos si de verdad nos lo proponemos, porque si no eres tú ¿quién va a ser mejor para mí?</span></p>
+    <button class="si" type="button">¿Seguimos subiendo juntos?</button>
+    <div id="final" hidden>
+      <p class="nota"><span class="tu">Si le diste al botón, seguiremos toda la vida subiendo plantas en nuestro ascensor del amor y las podré añadir aquí. TE AMO</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>Con todo mi amor, Lucas</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const entrada = document.querySelector('#entrada')
+  const cajas = document.querySelectorAll('.reloj b')
+  const relojEl = document.querySelector('.reloj')
+  const numero = document.querySelector('#piso b')
+  const nombre = document.querySelector('#piso small')
+  const boton = document.querySelector('.si')
+  const final = document.querySelector('#final')
+  const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  // Animación inicial de apertura
+  setTimeout(function () {
+    if (entrada) entrada.classList.add('abierto')
+  }, 700)
+
+  // Observer para cambiar el número de piso al hacer scroll
+  if (numero && nombre) {
+    const vigia = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) {
+          numero.textContent = e.target.dataset.piso || '0'
+          nombre.textContent = e.target.dataset.nombre || ''
+        }
+      })
+    }, { rootMargin: '-45% 0px -50% 0px' })
+
+    document.querySelectorAll('[data-piso]').forEach(function (p) {
+      vigia.observe(p)
+    })
+  }
+
+  // Lógica segura del reloj / contador de tiempo
+  if (relojEl && cajas.length > 0) {
+    const fechaTexto = relojEl.dataset.desde
+    const desde = fechaTexto ? new Date(fechaTexto) : null
+
+    function pintarReloj() {
+      if (!desde || isNaN(desde.getTime())) return
+
+      // Usamos Math.abs para que si la fecha es futura o pasada, no de NaN
+      const diff = Math.abs(Date.now() - desde.getTime())
+
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24))
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24)
+      const minutos = Math.floor((diff / (1000 * 60)) % 60)
+      const segundos = Math.floor((diff / 1000) % 60)
+
+      const valores = [dias, horas, minutos, segundos]
+      cajas.forEach(function (c, i) {
+        if (valores[i] !== undefined) {
+          c.textContent = valores[i]
+        }
+      })
+    }
+
+    pintarReloj()
+    setInterval(pintarReloj, 1000)
+  }
+
+  // Animación de pétalos/corazones
+  function lluvia() {
+    const signos = ['♥', '✿', '❀']
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('span')
+      p.className = 'petalo'
+      p.textContent = signos[i % 3]
+      p.style.left = Math.random() * 100 + 'vw'
+      p.style.fontSize = (14 + Math.random() * 22) + 'px'
+      p.style.animationDuration = (4 + Math.random() * 4) + 's'
+      p.style.animationDelay = (Math.random() * 2) + 's'
+      document.body.appendChild(p)
+      setTimeout(function () {
+        p.remove()
+      }, 11000)
+    }
+  }
+
+  // Evento botón final
+  if (boton && final) {
+    boton.addEventListener('click', function () {
+      final.hidden = false
+      if (!quieto) {
+        lluvia()
+      }
+    })
+  }
+})
+</script>
+</body>
+</html>
